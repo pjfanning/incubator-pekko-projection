@@ -14,11 +14,10 @@ import sbt._
 
 object Dependencies {
 
-  val Scala213 = "2.13.12"
-  val Scala212 = "2.12.18"
-  val Scala3 = "3.3.1"
-  val Scala2Versions = Seq(Scala213, Scala212)
-  val Scala2And3Versions = Scala2Versions.+:(Scala3)
+  val Scala213 = "2.13.13"
+  val Scala212 = "2.12.19"
+  val Scala3 = "3.3.3"
+  val ScalaVersions = Seq(Scala213, Scala212, Scala3)
 
   val PekkoVersionInDocs = "1.0"
   val ConnectorsVersionInDocs = "1.0"
@@ -30,7 +29,7 @@ object Dependencies {
     val pekkoPersistenceCassandra = "1.0.0"
     val connectors = PekkoConnectorsDependency.version
     val connectorsKafka = PekkoConnectorsKafkaDependency.version
-    val slick = "3.3.3"
+    val slick = "3.5.0"
     val scalaTest = "3.2.14"
     val testContainers = "1.15.3"
     val junit = "4.13.2"
