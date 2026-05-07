@@ -27,12 +27,14 @@ run / javaOptions ++= sys.props
   .fold(Seq.empty[String])(res => Seq(s"-Dconfig.resource=$res"))
 Global / cancelable := false // ctrl-c
 
-val PekkoVersion = "2.7.0"
-val PekkoHttpVersion = "10.4.0"
-val PekkoManagementVersion = "1.2.0"
-val PekkoPersistenceR2dbcVersion = "1.0.1"
+val PekkoVersion = "2.0.0-M1"
+val PekkoHttpVersion = "2.0.0-M1"
+val PekkoManagementVersion = "2.0.0-M1"
+val PekkoPersistenceR2dbcVersion = "1.1.0"
 val PekkoProjectionVersion =
-  sys.props.getOrElse("pekko-projection.version", "1.3.0")
+  sys.props.getOrElse("pekko-projection.version", "1.1.0")
+val PekkoProjectionGrpcVersion =
+  sys.props.getOrElse("pekko-projection-grpc.version", "2.0.0-M1")
 
 enablePlugins(PekkoGrpcPlugin)
 
@@ -70,6 +72,6 @@ libraryDependencies ++= Seq(
   // 4. Querying and publishing data from Pekko Persistence
   "org.apache.pekko" %% "pekko-persistence-query" % PekkoVersion,
   "org.apache.pekko" %% "pekko-projection-r2dbc" % PekkoPersistenceR2dbcVersion,
-  "org.apache.pekko" %% "pekko-projection-grpc" % PekkoProjectionVersion,
+  "org.apache.pekko" %% "pekko-projection-grpc" % PekkoProjectionGrpcVersion,
   "org.apache.pekko" %% "pekko-projection-eventsourced" % PekkoProjectionVersion,
   "org.apache.pekko" %% "pekko-projection-testkit" % PekkoProjectionVersion % Test)

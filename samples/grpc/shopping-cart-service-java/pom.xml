@@ -17,8 +17,13 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <pekko-grpc-maven-plugin.version>2.2.1</pekko-grpc-maven-plugin.version>
+        <pekko-grpc-maven-plugin.version>2.0.0-M1</pekko-grpc-maven-plugin.version>
         <scala.binary.version>2.13</scala.binary.version>
+        <pekko.management.version>2.0.0-M1</pekko.management.version>
+        <pekko.grpc.version>2.0.0-M1</pekko.grpc.version>
+        <pekko.persistence.r2dbc.version>1.1.0</pekko.persistence.r2dbc.version>
+        <pekko.projection.version>1.1.0</pekko.projection.version>
+        <pekko.projection.grpc.version>2.0.0-M1</pekko.projection.grpc.version>
         <!-- needs to be defined to allow for overriding through mvn exec:exec -DAPP_CONFIG=local1.conf -->
         <APP_CONFIG>application.conf</APP_CONFIG>
         <!-- Version of the Docker image is derived from git commit.
@@ -30,8 +35,8 @@
         <dependencies>
             <dependency>
                 <groupId>org.apache.pekko</groupId>
-                <artifactId>pekko-dependencies_${scala.binary.version}</artifactId>
-                <version>22.10.3</version>
+                <artifactId>pekko-bom_${scala.binary.version}</artifactId>
+                <version>2.0.0-M1</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -66,30 +71,37 @@
         <dependency>
             <groupId>org.apache.pekko</groupId>
             <artifactId>pekko-persistence-r2dbc_${scala.binary.version}</artifactId>
+            <version>${pekko.persistence.r2dbc.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.pekko</groupId>
             <artifactId>pekko-projection-r2dbc_${scala.binary.version}</artifactId>
+            <version>${pekko.projection.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.pekko</groupId>
             <artifactId>pekko-projection-grpc_${scala.binary.version}</artifactId>
+            <version>${pekko.projection.grpc.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.pekko</groupId>
             <artifactId>pekko-projection-eventsourced_${scala.binary.version}</artifactId>
+            <version>${pekko.projection.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.pekko</groupId>
             <artifactId>pekko-management-cluster-http_${scala.binary.version}</artifactId>
+            <version>${pekko.management.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.pekko</groupId>
             <artifactId>pekko-management-cluster-bootstrap_${scala.binary.version}</artifactId>
+            <version>${pekko.management.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.pekko</groupId>
             <artifactId>pekko-grpc-runtime_${scala.binary.version}</artifactId>
+            <version>${pekko.grpc.version}</version>
         </dependency>
 
         <dependency>
@@ -111,6 +123,7 @@
         <dependency>
             <groupId>org.apache.pekko</groupId>
             <artifactId>pekko-projection-testkit_${scala.binary.version}</artifactId>
+            <version>${pekko.projection.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>

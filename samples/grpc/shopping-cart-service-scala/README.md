@@ -49,8 +49,6 @@
     # check out cart
     grpcurl -d '{"cartId":"cart1"}' -plaintext 127.0.0.1:8101 shoppingcart.ShoppingCartService.Checkout
     
-    # get item popularity
-    grpcurl -d '{"itemId":"socks"}' -plaintext 127.0.0.1:8101 shoppingcart.ShoppingCartService.GetItemPopularity
     ```
 
     or same `grpcurl` commands to port 8102 to reach node 2.
