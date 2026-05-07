@@ -60,7 +60,7 @@ libraryDependencies ++= Seq(
   "org.apache.pekko" %% "pekko-discovery" % PekkoVersion,
   // Common dependencies for logging and testing
   "org.apache.pekko" %% "pekko-slf4j" % PekkoVersion,
-  "ch.qos.logback" % "logback-classic" % "1.2.11",
+  "ch.qos.logback" % "logback-classic" % "1.2.13",
   "org.scalatest" %% "scalatest" % "3.1.2" % Test,
   // 2. Using gRPC and/or protobuf
   "org.apache.pekko" %% "pekko-http2-support" % PekkoHttpVersion,
