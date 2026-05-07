@@ -1,0 +1,70 @@
+package shopping.cart;
+
+//#eventProducerService
+import pekko.actor.typed.ActorSystem;
+import pekko.http.javadsl.model.HttpRequest;
+import pekko.http.javadsl.model.HttpResponse;
+import pekko.japi.function.Function;
+import pekko.projection.grpc.producer.EventProducerSettings;
+import pekko.projection.grpc.producer.javadsl.EventProducer;
+import pekko.projection.grpc.producer.javadsl.EventProducerSource;
+import pekko.projection.grpc.producer.javadsl.Transformation;
+
+import java.util.Optional;
+import java.util.concurrent.CompletionStage;
+
+//#eventProducerService
+
+public class PublishEvents {
+
+  //#eventProducerService
+  public static Function<HttpRequest, CompletionStage<HttpResponse>> eventProducerService(ActorSystem<?> system) {
+    Transformation transformation =
+        Transformation.empty()
+            .registerMapper(ShoppingCart.ItemAdded.class, event -> Optional.of(transformItemAdded(event)))
+            .registerMapper(ShoppingCart.ItemQuantityAdjusted.class, event -> Optional.of(transformItemQuantityAdjusted(event)))
+            .registerMapper(ShoppingCart.ItemRemoved.class, event -> Optional.of(transformItemRemoved(event)))
+            .registerMapper(ShoppingCart.CheckedOut.class, event -> Optional.of(transformCheckedOut(event)));
+
+    EventProducerSource eventProducerSource = new EventProducerSource(
+        "ShoppingCart",
+        "cart",
+        transformation,
+        EventProducerSettings.apply(system)
+    );
+
+    return EventProducer.grpcServiceHandler(system, eventProducerSource);
+  }
+  //#eventProducerService
+
+  //#transformItemAdded
+  private static shopping.cart.proto.ItemAdded transformItemAdded(ShoppingCart.ItemAdded itemAdded) {
+    return shopping.cart.proto.ItemAdded.newBuilder()
+        .setCartId(itemAdded.cartId)
+        .setItemId(itemAdded.itemId)
+        .setQuantity(itemAdded.quantity)
+        .build();
+  }
+  //#transformItemAdded
+
+  private static shopping.cart.proto.ItemQuantityAdjusted transformItemQuantityAdjusted(ShoppingCart.ItemQuantityAdjusted itemQuantityAdjusted) {
+    return shopping.cart.proto.ItemQuantityAdjusted.newBuilder()
+        .setCartId(itemQuantityAdjusted.cartId)
+        .setItemId(itemQuantityAdjusted.itemId)
+        .setQuantity(itemQuantityAdjusted.newQuantity)
+        .build();
+  }
+
+  private static shopping.cart.proto.ItemRemoved transformItemRemoved(ShoppingCart.ItemRemoved itemRemoved) {
+    return shopping.cart.proto.ItemRemoved.newBuilder()
+        .setCartId(itemRemoved.cartId)
+        .setItemId(itemRemoved.itemId)
+        .build();
+  }
+
+  private static shopping.cart.proto.CheckedOut transformCheckedOut(ShoppingCart.CheckedOut checkedOut) {
+    return shopping.cart.proto.CheckedOut.newBuilder()
+        .setCartId(checkedOut.cartId)
+        .build();
+  }
+}
