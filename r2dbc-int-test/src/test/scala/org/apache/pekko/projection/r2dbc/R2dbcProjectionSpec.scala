@@ -98,7 +98,7 @@ object R2dbcProjectionSpec {
     val table = "projection_spec_model"
 
     val createTableSql: String =
-      s"""|CREATE table IF NOT EXISTS "$table" (
+      s"""|CREATE table IF NOT EXISTS $table (
           |  id VARCHAR(255) NOT NULL,
           |  concatenated VARCHAR(255) NOT NULL,
           |  PRIMARY KEY(id)
