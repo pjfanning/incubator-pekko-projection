@@ -46,6 +46,8 @@ jobs:
         uses: coursier/cache-action@95e5b1029b6b86e7bac033ee44a0697d8a527d2d # v8.1.1
 
       - name: Code style check and binary-compatibility check
+        env:
+          JAVA_OPTS: -Xms2G -Xmx4G -Xss2M -XX:ReservedCodeCacheSize=256M -Dfile.encoding=UTF-8
         run: sbt "checkCodeStyle; mimaReportBinaryIssues"
 
   check-code-compilation:
